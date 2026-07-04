@@ -1,0 +1,32 @@
+services:
+  api:
+    build: .
+    container_name: node-api
+
+    ports:
+      - "3000:3000"
+
+    environment:
+      PORT: 3000
+      HOST: 0.0.0.0
+      MONGODB_URI: mongodb://mongo:27017/IOChat
+
+      CLOUDINARY_CLOUD_NAME: your_cloud_name
+      CLOUDINARY_API_KEY: your_api_key
+      CLOUDINARY_API_SECRET: your_api_secret
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:8
+
+    container_name: mongodb
+
+    ports:
+      - "27017:27017"
+
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

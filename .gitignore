@@ -1,0 +1,7 @@
+.env
+node_modules
+uploads/images/*
+!uploads/images/chat 1.png
+!uploads/images/chat 2.png
+!uploads/images/chat 3.png
+!uploads/images/chat 4.png

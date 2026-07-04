@@ -1,0 +1,102 @@
+doctype html
+html
+  head
+    title Socket.IO Test
+
+  body
+    h1 Socket.IO Test
+    div#name(style="color: black;")
+    input#usernameInput(type="text" placeholder="Enter your name")
+
+    br
+    br
+
+    button(onclick="joinChat()") Join
+    button(onclick="sendMessage()") Send Message
+    
+    br
+    br
+
+    input#messageInput(type="text" placeholder="Type a message...")
+
+    div#typing(style="color: black;")
+    div#messages(style="color: blue;")
+    script(src="/socket.io/socket.io.js")
+
+    script.
+
+      const socket = io();
+
+      const usernameInput = document.getElementById("usernameInput");
+      const messageInput = document.getElementById("messageInput");
+      const typingDiv = document.getElementById("typing");
+      const nameDiv = document.getElementById("name");
+      const messagesDiv = document.getElementById("messages");
+
+
+      let isTyping = false;
+      let timeout = null;
+
+      socket.on("connect", () => {
+        console.log("Connected from index:", socket.id);
+      });
+
+      function joinChat() {
+        const username = usernameInput.value || "Guest";
+        nameDiv.innerText = "User Name "+username ;
+        socket.emit("chat:join", {
+          username: username
+        });
+      }
+
+      function sendMessage() {
+        const username = usernameInput.value || "Guest";
+
+        socket.emit("chat:message", {
+          username: username,
+          text: messageInput.value
+        });
+
+        messageInput.value = "";
+      }
+
+      messageInput.addEventListener("input", () => {
+        const username = usernameInput.value || "Guest";
+
+        if (!isTyping) {
+          isTyping = true;
+
+          console.log(username + " is typing...");
+          //- typingDiv.innerText = username + " is typing...";
+          socket.emit("chat:typing", {
+            username: username
+          });
+        }
+
+        clearTimeout(timeout);
+
+        timeout = setTimeout(() => {
+          isTyping = false;
+
+          socket.emit("chat:stopTyping", {
+            username: username
+          });
+
+        }, 1500);
+      });
+      socket.on("chat:typing", (data) => {
+        typingDiv.innerText = data.username + " is typing...";
+      });
+      socket.on("chat:message", (data) => {
+        messagesDiv.innerText = data.username + ": " + data.text;
+     
+      });
+      socket.on("chat:stopTyping", (data) => {
+        typingDiv.innerText = "stopTyping";
+        setTimeout(() => {
+          typingDiv.innerText = "";
+
+
+        }, 1500);
+        
+      });
