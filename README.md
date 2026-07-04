@@ -88,14 +88,14 @@ This is my socket.io chat app
 
 typing example:
 
-![App Screenshot](./uploads/images/chat 1.png)
+![App Screenshot](./uploads/images/chat%201.png)
 
 stopped typing example:
 
-![App Screenshot](./uploads/images/chat 2.png)
+![App Screenshot](./uploads/images/chat%202.png)
 
 stopped typing disapeared example:
-![App Screenshot](./uploads/images/chat 3.png)
+![App Screenshot](./uploads/images/chat%203.png)
 
 send message example:
-![App Screenshot](./uploads/images/chat 4.png)
+![App Screenshot](./uploads/images/chat%204.png)
