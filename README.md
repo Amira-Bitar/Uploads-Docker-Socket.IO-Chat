@@ -86,16 +86,18 @@ Use the test page to:
 
 This is my socket.io chat app 
 
-typing example:
+## typing example:
 
 ![App Screenshot](./uploads/images/chat%201.png)
 
-stopped typing example:
+## stopped typing example:
 
 ![App Screenshot](./uploads/images/chat%202.png)
 
-stopped typing disapeared example:
+## stopped typing disapeared example:
+
 ![App Screenshot](./uploads/images/chat%203.png)
 
-send message example:
+## send message example:
+
 ![App Screenshot](./uploads/images/chat%204.png)
